@@ -1,0 +1,4 @@
+*.swp
+tags
+.fixtures.yml
+/spec/fixtures
