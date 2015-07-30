@@ -6,4 +6,5 @@ highlight Comment ctermfg=DarkGrey
 highlight StatusLine cterm=underline
 highlight StatusLineNC cterm=underline
 highlight qfFileName ctermfg=Cyan
-
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /^\s\+$/

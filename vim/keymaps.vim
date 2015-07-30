@@ -74,6 +74,6 @@ vnoremap        <silent><leader>fx      :FormatXMLRange<cr>
 
 " Folding
 if has("folding")
-    nmap        -                       :ToggleFold<cr>
+    nnoremap    <silent>-               zi
 endif
 

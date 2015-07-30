@@ -1,38 +1,3 @@
-"""""""""""""""""""""""""
-" Like windo but restore the current window.
-function! s:WinDo(command)
-    let currwin=winnr()
-    execute 'windo ' . a:command
-    execute currwin . 'wincmd w'
-endfunction
-command! -nargs=+ -complete=command WinDo call <SID>WinDo(<q-args>)
-"""""""""""""""""""""""""
-
-"""""""""""""""""""""""""
-" Folding helpers
-if has("folding")
-    function! s:Fold()
-        :WinDo execute ":set foldenable"
-        :WinDo execute ":set foldminlines=5"
-        let g:folded=1
-    endfunction
-
-    function! s:Unfold()
-        :WinDo execute ":set nofoldenable"
-        :WinDo execute ":set foldminlines=99999"
-        let g:folded=0
-    endfunction
-
-    function! s:ToggleFold()
-        if !exists("g:folded") || g:folded == '0'
-            call <SID>Fold()
-        else
-            call <SID>Unfold()
-        endif
-    endfunction
-
-endif
-"""""""""""""""""""""""""
 
 """""""""""""""""""""""""
 " window helpers
@@ -146,16 +111,16 @@ endfunction
 """""""""""""""""""""""""
 " Function to toggle long line highlight toggling
 function! s:LongLineHLToggle()
- if !exists('w:longlinehl')
-  highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-  match OverLength /\%>72v.\+/
-  let w:longlinehl = 1
-  echo "Long lines highlighted"
- else
-  highlight clear OverLength
-  unl w:longlinehl
-  echo "Long lines unhighlighted"
- endif
+    if !exists('w:longlinehl')
+        highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+        match OverLength /\%>79v.\+/
+        let w:longlinehl = 1
+        echo "Long lines highlighted"
+    else
+        highlight clear OverLength
+        unl w:longlinehl
+        echo "Long lines unhighlighted"
+    endif
 endfunction
 """""""""""""""""""""""""
 
@@ -256,7 +221,62 @@ function! s:FormatJSONRange() range
 endfunction
 """""""""""""""""""""""""
 
-command! -nargs=+ -complete=command WinDo call <SID>WinDo(<q-args>)
+"""""""""""""""""""""""""
+" Iteration functions
+" Like windo but restore the current window.
+function! s:WinDo(command)
+    let currwin=winnr()
+    execute 'windo ' . a:command
+    execute currwin . 'wincmd w'
+endfunction
+
+" Like bufdo but restore the current buffer.
+function! s:BufDo(command)
+    let currBuff=bufnr("%")
+    execute 'bufdo ' . a:command
+    execute 'buffer ' . currBuff
+endfunction
+
+" Like tabdo but restore the current tab.
+function! s:TabDo(command)
+    let currTab=tabpagenr()
+    execute 'tabdo ' . a:command
+    execute 'tabn ' . currTab
+endfunction
+"""""""""""""""""""""""""
+
+"""""""""""""""""""""""""
+" Function to return '[TS]' if trailing whitespace dectected.  Return ''
+" otherwise.  Note that this is only recalculated when vim is idle.  Depends
+" on an autocommand to clear the buffer var.  Note that this function is not
+" scoped to this script with the 's:' prefix because it must be called from
+" elsewhere.
+function! StatusLineSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[*TS*]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
+"""""""""""""""""""""""""
+
+"""""""""""""""""""""""""
+" Debugging function to return the syntax highlight group under the cursor
+" Command usage:
+"     :echom StatusLineCurrentHighlight()
+function! StatusLineCurrentHighlight()
+    let name = synIDattr(synID(line('.'),col('.'),1),'name')
+    if name == ''
+        return ''
+    else
+        return '[' . name . ']'
+    endif
+endfunction
+"""""""""""""""""""""""""
+
 command! -nargs=0 LocationToggle call <SID>LocationToggle()
 command! -nargs=0 QFToggle call <SID>QFToggle()
 command! -nargs=0 QFSort call <SID>QFSort()
@@ -270,8 +290,6 @@ command! -nargs=0 FormatJSON call <SID>FormatJSON()
 command! -nargs=0 -range=% FormatJSONRange <line1>,<line2>call <SID>FormatJSONRange()
 command! -nargs=0 FormatXML call <SID>FormatXML()
 command! -nargs=0 -range=% FormatXMLRange <line1>,<line2>call <SID>FormatXMLRange()
-if has("folding")
-    command! -nargs=0 Fold call <SID>Fold()
-    command! -nargs=0 Unfold call <SID>Unfold()
-    command! -nargs=0 ToggleFold call <SID>ToggleFold()
-endif
+command! -nargs=+ -complete=command WinDo call <SID>WinDo(<q-args>)
+command! -nargs=+ -complete=command BufDo call <SID>BufDo(<q-args>)
+command! -nargs=+ -complete=command TabDo call <SID>TabDo(<q-args>)
