@@ -1,6 +1,7 @@
 
 " Quit
-nnoremap        Q                       :confirm qa<cr>
+nnoremap        Q                       :qa<cr>
+vnoremap        Q                       <esc>:qa<cr>
 
 " Easily clear highlighting
 noremap         <silent><leader><space> :noh<cr>
@@ -71,6 +72,21 @@ nnoremap        <silent><leader>fj      :FormatJSON<cr>
 nnoremap        <silent><leader>fx      :FormatXML<cr>
 vnoremap        <silent><leader>fj      :FormatJSONRange<cr>
 vnoremap        <silent><leader>fx      :FormatXMLRange<cr>
+
+" Mapping to re-highlight an indented visual block
+vnoremap        <tab>                   >gv
+vnoremap        <s-tab>                 <gv
+vnoremap        >                       >gv
+vnoremap        <                       <gv
+
+" Mapping to bubble lines of visual selection text
+vnoremap         <C-J>                  xp`[V`]
+vnoremap         <C-K>                  xkP`[V`]
+
+
+" Mappings to try to save my pinky
+nnoremap        <bs>                    :
+vnoremap        <bs>                    :
 
 " Folding
 if has("folding")

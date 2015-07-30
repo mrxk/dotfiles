@@ -267,6 +267,8 @@ endfunction
 " Debugging function to return the syntax highlight group under the cursor
 " Command usage:
 "     :echom StatusLineCurrentHighlight()
+" Not in script scope because it has to be called when rendering the status
+" line
 function! StatusLineCurrentHighlight()
     let name = synIDattr(synID(line('.'),col('.'),1),'name')
     if name == ''
@@ -274,6 +276,15 @@ function! StatusLineCurrentHighlight()
     else
         return '[' . name . ']'
     endif
+endfunction
+
+function! s:FileInfo(filename)
+  let fn = expand(a:filename)
+  echo "filename: " . expand("%:p")
+  echo "type    : " . getftype(fn)
+  echo "mtime   : " . strftime("%Y-%m-%d %H:%M %a",getftime(fn))
+  echo "size    : " . getfsize(fn) . " bytes"
+  echo "perm    : " . getfperm(fn)
 endfunction
 """""""""""""""""""""""""
 
@@ -293,3 +304,4 @@ command! -nargs=0 -range=% FormatXMLRange <line1>,<line2>call <SID>FormatXMLRang
 command! -nargs=+ -complete=command WinDo call <SID>WinDo(<q-args>)
 command! -nargs=+ -complete=command BufDo call <SID>BufDo(<q-args>)
 command! -nargs=+ -complete=command TabDo call <SID>TabDo(<q-args>)
+command! -nargs=0 FileInfo call <SID>FileInfo('%')
