@@ -1,7 +1,7 @@
 
 " Quit
-nnoremap        Q                       :qa<cr>
-vnoremap        Q                       <esc>:qa<cr>
+nnoremap        Q                       :confirm qa<cr>
+vnoremap        Q                       <esc>:confirm qa<cr>
 
 " Easily clear highlighting
 noremap         <silent><leader><space> :noh<cr>
