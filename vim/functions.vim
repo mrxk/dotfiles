@@ -291,7 +291,7 @@ endfunction
 """""""""""""""""""""""""
 " Align table 
 function! s:AlignTable()
-    let p = '^\s*|\s.*\s|\s*$'
+    let p = '^\s*|.*|\s*$'
     if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
         let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
         let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
