@@ -288,6 +288,19 @@ function! s:FileInfo(filename)
 endfunction
 """""""""""""""""""""""""
 
+"""""""""""""""""""""""""
+" Align table 
+function! s:AlignTable()
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+endfunction
+
 command! -nargs=0 LocationToggle call <SID>LocationToggle()
 command! -nargs=0 QFToggle call <SID>QFToggle()
 command! -nargs=0 QFSort call <SID>QFSort()
@@ -305,3 +318,4 @@ command! -nargs=+ -complete=command WinDo call <SID>WinDo(<q-args>)
 command! -nargs=+ -complete=command BufDo call <SID>BufDo(<q-args>)
 command! -nargs=+ -complete=command TabDo call <SID>TabDo(<q-args>)
 command! -nargs=0 FileInfo call <SID>FileInfo('%')
+command! -nargs=0 AlignTable call <SID>AlignTable()
