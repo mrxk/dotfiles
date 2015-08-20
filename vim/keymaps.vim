@@ -35,7 +35,7 @@ nnoremap        <C-h>                   <C-w>h
 nnoremap        <C-j>                   <C-w>j
 nnoremap        <C-k>                   <C-w>k
 nnoremap        <C-l>                   <C-w>l
-nnoremap        <cr>                    gj
+"nnoremap        <cr>                    gj
 
 " I can't stop hitting f1
 inoremap        <F1>                    <ESC>
@@ -76,8 +76,6 @@ vnoremap        <silent><leader>fx      :FormatXMLRange<cr>
 " Mapping to re-highlight an indented visual block
 vnoremap        <tab>                   >gv
 vnoremap        <s-tab>                 <gv
-vnoremap        >                       >gv
-vnoremap        <                       <gv
 
 " Mapping to bubble lines of visual selection text
 vnoremap         <C-J>                  xp`[V`]
