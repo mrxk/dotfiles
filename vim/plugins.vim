@@ -4,6 +4,7 @@
 " Tabularize  - https://github.com/godlygeek/tabular.git
 " TagBar      - https://github.com/majutsushi/tagbar
 " OrgMode     - https://github.com/jceb/vim-orgmode.git
+" Calendar    - https://github.com/mattn/calendar-vim.git
 " SpeedDating - https://github.com/tpope/vim-speeddating.git
 
 " Make ctrl-o open for ctrl-p plugin
@@ -25,3 +26,11 @@ let g:tagbar_type_groovy = {
         \ 'v:variables',
     \ ]
 \ }
+
+" Org Mode settings
+" let g:org_heading_shade_leading_stars = 0
+let g:org_todo_keywords = [['TODO', 'WAITING', 'INRPROGRESS', '|', 'DONE'], ['|', 'CANCELED']]
+let g:org_todo_keyword_faces = [
+            \['CANCELED', [':foreground red', ':background black', ':weight bold', ':slant italic', ':decoration underline']]
+            \]
+
