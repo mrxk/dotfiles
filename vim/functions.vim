@@ -289,7 +289,7 @@ endfunction
 """""""""""""""""""""""""
 
 """""""""""""""""""""""""
-" Align table 
+" Align table
 function! s:AlignTable()
     let p = '^\s*|.*|\s*$'
     if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
