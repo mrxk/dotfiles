@@ -70,19 +70,25 @@ function! s:syntax()
     syntax region jiraCode start=/{code}/ skip=/\v\\./ end=/{code}/
     syntax region jiraCode start=/{quote}/ skip=/\v\\./ end=/{quote}/
     syntax match jiraCommentAuthor /^[A-Za-z \(\)]*\w: \d\{4}-\d\{2}-\d\{2}T\d\{2}:\d\{2}:\d\{2}\.\d\{3}-\d*[ (edited)]*$/
-    syntax match jiarLink /https*:\/\/[A-Za-z\.\/0-9\-\:_\<\> ?=&+%]*/
-    syntax match jiraCodeInline /{{\_.\{-}}}/ contains=jiraCodeInlineStart,jiarCodeInlineEnd containedin=ALL
-    syntax match jiraCodeInlineStart contained /{{/ conceal
-    syntax match jiarCodeInlineEnd contained /}}/ conceal
+    syntax match jiraLink /https*:\/\/[A-Za-z\.\/0-9\-\:_\<\> ?=&+%]*/
+    syntax match jiraCodeInline /{{\_.\{-}}}/ contains=jiraCodeInlineStart,jiraCodeInlineEnd containedin=ALL
+    if v:version >= 703
+        syntax match jiraCodeInlineStart contained /{{/ conceal
+        syntax match jiraCodeInlineEnd contained /}}/ conceal
+        setlocal conceallevel=2
+        setlocal concealcursor=nc
+    else
+        syntax match jiraCodeInlineStart contained /{{/
+        syntax match jiraCodeInlineEnd contained /}}/
+    endif
     highlight link jiraIssue Tag
     highlight link jiraTitle Title
     highlight link jiraCode Comment
     highlight link jiraCodeInline Comment
+    highlight link jiraCodeInlineStart Comment
+    highlight link jiraCodeInlineEnd Comment
     highlight link jiraCommentAuthor Type
-    highlight link jiarLink Underlined
-
-    setlocal conceallevel=2
-    setlocal concealcursor=nc
+    highlight link jiraLink Underlined
 
 endfunction
 

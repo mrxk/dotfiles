@@ -16,19 +16,19 @@ def get_priority_name(issue):
 
 def format_link(link):
     if hasattr(link, 'inwardIssue'):
-        return "{}(i)".format(link.inwardIssue.key)
+        return "{0}(i)".format(link.inwardIssue.key)
     else:
-        return "{}(o)".format(link.outwardIssue.key)
+        return "{0}(o)".format(link.outwardIssue.key)
 
 def display_subtasks_line(subtasks):
     keys = ", ".join(t.key for t in subtasks)
     if len(keys) > 0:
-        vim.current.buffer.append("Subtasks    : {}".format(keys))
+        vim.current.buffer.append("Subtasks    : {0}".format(keys))
 
 def display_links_line(links):
     keys = ", ".join([format_link(l) for l in links])
     if len(keys) > 0:
-        vim.current.buffer.append("Linked tasks: {}".format(keys))
+        vim.current.buffer.append("Linked tasks: {0}".format(keys))
 
 def display_comments(issue):
     curbuf = vim.current.buffer
@@ -41,7 +41,7 @@ def display_comments(issue):
             updated = ""
             if comment.created != comment.updated:
                 updated = " (edited)"
-            title = "{}: {}{}".format(as_ascii(comment.author), comment.created, updated)
+            title = "{0}: {1}{2}".format(as_ascii(comment.author), comment.created, updated)
             curbuf.append("")
             curbuf.append(title)
             curbuf.append('-'*len(title))
@@ -53,19 +53,19 @@ def display_issue(issue):
     vim.command('setlocal modifiable')
     curbuf = vim.current.buffer
     del curbuf[:]
-    curbuf[0] = "{}/browse/{}".format(vimjira.get_server(), issue.key)
+    curbuf[0] = "{0}/browse/{1}".format(vimjira.get_server(), issue.key)
     curbuf.append("="*len(curbuf[0]))
-    curbuf.append("Issue       : {}".format(issue.key))
-    curbuf.append("Reporter    : {}".format(as_ascii(issue.fields.reporter)))
-    curbuf.append("Assignee    : {}".format(as_ascii(issue.fields.assignee)))
-    curbuf.append("Status      : {}".format(as_ascii(issue.fields.status)))
-    curbuf.append("Issue type  : {}".format(as_ascii(issue.fields.issuetype)))
-    curbuf.append("Priority    : {}".format(get_priority_name(issue)))
-    curbuf.append("Components  : {}".format(", ".join([c.name for c in issue.fields.components])))
-    curbuf.append("Created     : {}".format(issue.fields.created))
-    curbuf.append("Updated     : {}".format(issue.fields.updated))
+    curbuf.append("Issue       : {0}".format(issue.key))
+    curbuf.append("Reporter    : {0}".format(as_ascii(issue.fields.reporter)))
+    curbuf.append("Assignee    : {0}".format(as_ascii(issue.fields.assignee)))
+    curbuf.append("Status      : {0}".format(as_ascii(issue.fields.status)))
+    curbuf.append("Issue type  : {0}".format(as_ascii(issue.fields.issuetype)))
+    curbuf.append("Priority    : {0}".format(get_priority_name(issue)))
+    curbuf.append("Components  : {0}".format(", ".join([c.name for c in issue.fields.components])))
+    curbuf.append("Created     : {0}".format(issue.fields.created))
+    curbuf.append("Updated     : {0}".format(issue.fields.updated))
     if issue.fields.resolutiondate:
-        curbuf.append("Resolved    : {}({})".format(issue.fields.resolutiondate, issue.fields.resolution))
+        curbuf.append("Resolved    : {0}({1})".format(issue.fields.resolutiondate, issue.fields.resolution))
     display_subtasks_line(issue.fields.subtasks)
     display_links_line(issue.fields.issuelinks)
 
@@ -95,10 +95,10 @@ def display_issue_collection(title, issues):
     vim.command('setlocal modifiable')
     curbuf = vim.current.buffer
     del curbuf[:]
-    curbuf[0] = '{} ({} issues)'.format(title, len(issues))
+    curbuf[0] = '{0} ({1} issues)'.format(title, len(issues))
     vim.command('redraw')
     for issue in sorted(issues, key=lambda i: i.fields.updated, reverse=True):
-        curbuf.append("{}| {}| {}| {}".format(issue.key, issue.fields.updated, get_priority_name(issue), as_ascii(issue.fields.summary)))
+        curbuf.append("{0}| {1}| {2}| {3}".format(issue.key, issue.fields.updated, get_priority_name(issue), as_ascii(issue.fields.summary)))
     vim.command('2,$Tabularize /|')
     vim.command('normal! gg')
     vim.command('setlocal nomodifiable')
