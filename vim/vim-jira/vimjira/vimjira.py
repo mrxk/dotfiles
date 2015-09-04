@@ -16,9 +16,14 @@ except:
     sys.stdout.write("!! pip install keyring                     !!\n")
     sys.stdout.write("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n")
     raise
+
 # Hide secure ssl warnings with Python 2.6
-import requests.packages.urllib3
-requests.packages.urllib3.disable_warnings()
+# Don't fail if urllib3 is not present
+try:
+    import requests.packages.urllib3
+    requests.packages.urllib3.disable_warnings()
+except:
+    pass
 
 def as_ascii(str):
     if str is None:
