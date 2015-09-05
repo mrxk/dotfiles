@@ -20,17 +20,23 @@ def format_link(link):
     else:
         return "{0} - {1} (o)".format(link.outwardIssue.key, link.type)
 
-def display_subtasks_line(subtasks):
-    keys = ", ".join(t.key for t in subtasks)
-    if len(keys) > 0:
-        vim.current.buffer.append("Subtasks     : {0}".format(keys))
+def display_subtasks(subtasks):
+    if not subtasks or len(subtasks) == 0:
+        return
+    first = True
+    curbuf = vim.current.buffer
+    for t in subtasks:
+        if first:
+            curbuf.append("Subtasks     : {0}".format(t.key))
+            first = False
+        else:
+            curbuf.append("               {0}".format(t.key))
 
-def display_links_line(links):
+def display_links(links):
     if not links or len(links) == 0:
         return
     first = True
     curbuf = vim.current.buffer
-    keys = ", ".join([format_link(l) for l in links])
     for l in links:
         if first:
             curbuf.append("Issue links  : {0}".format(format_link(l)))
@@ -112,8 +118,8 @@ def display_issue(issue):
     display_f_version_line(issue.fields.fixVersions)
     display_labels_line(issue.fields.labels)
     display_environment_line(issue.fields.environment)
-    display_subtasks_line(issue.fields.subtasks)
-    display_links_line(issue.fields.issuelinks)
+    display_subtasks(issue.fields.subtasks)
+    display_links(issue.fields.issuelinks)
     curbuf.append("")
     curbuf.append("Description")
     curbuf.append("="*79)
