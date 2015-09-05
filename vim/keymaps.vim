@@ -91,8 +91,9 @@ if has("folding")
     nnoremap    <silent>-               zi
 endif
 
-nnoremap <leader>ji :JiraIssue<cr>
-nnoremap <leader>js :JiraSearch<cr>
+nnoremap <silent> <leader>ji :JiraIssue<cr>
+nnoremap <silent> <leader>js :JiraSearch<cr>
 nnoremap <silent> <leader>jo :JiraMyIssues<cr>
 nnoremap <silent> <leader>jh :JiraHistory<cr>
+nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 

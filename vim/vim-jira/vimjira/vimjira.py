@@ -33,21 +33,27 @@ def as_ascii(str):
 def get_server(ask=False):
     server = keyring.get_password('vim-jira', 'server')
     if ask or not server:
+        vim.eval("inputsave()")
         server = vim.eval("input('server: ')")
+        vim.eval("inputrestore()")
     keyring.set_password('vim-jira', 'server', server)
     return server
 
 def get_username(ask=False):
     username = keyring.get_password('vim-jira', 'username')
     if ask or not username:
+        vim.eval("inputsave()")
         username = vim.eval("input('username: ')")
+        vim.eval("inputrestore()")
     keyring.set_password('vim-jira', 'username', username)
     return username
 
 def get_password(ask=False):
     password = keyring.get_password('vim-jira', 'password')
     if ask or not password:
+        vim.eval("inputsave()")
         password = vim.eval("inputsecret('password: ')")
+        vim.eval("inputrestore()")
     keyring.set_password('vim-jira', 'password', password)
     return password
 
@@ -78,3 +84,14 @@ def search(query):
     vimjiraformat.display_issue_collection(query, results)
     vim.eval("add(s:history, 'query:{0}')".format(query))
 
+def gitbranch(path):
+    if not path:
+        path = '.'
+    repo = ''
+    try:
+        repo = git.Repo(path, search_parent_directories=True)
+    except git.InvalidGitRepositoryError as e:
+        vimjiraformat.display_error("Git error: \n\t Invalid git repository: {0}".format(e))
+        return
+    name = repo.active_branch.name
+    issue(name)
