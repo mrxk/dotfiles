@@ -1,6 +1,8 @@
 .gitignore
+.netrwhist
 *.swp
 *.pyc
 tags
 .fixtures.yml
 /spec/fixtures
+plugged
