@@ -97,3 +97,6 @@ nnoremap <silent> <leader>jo :JiraMyIssues<cr>
 nnoremap <silent> <leader>jh :JiraHistory<cr>
 nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 
+" with <c-o> mapped to open with ctrlP I need another jumplist key
+nnoremap <c-j> <c-o>
+nnoremap <c-h> <c-i>
