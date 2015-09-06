@@ -35,7 +35,7 @@ nnoremap        <C-h>                   <C-w>h
 nnoremap        <C-j>                   <C-w>j
 nnoremap        <C-k>                   <C-w>k
 nnoremap        <C-l>                   <C-w>l
-"nnoremap        <cr>                    gj
+"nnoremap        <cr>                   gj
 
 " I can't stop hitting f1
 inoremap        <F1>                    <ESC>
@@ -43,7 +43,7 @@ nnoremap        <F1>                    <ESC>
 vnoremap        <F1>                    <ESC>
 
 " Deal with pastemode
-nnoremap        <c-p>                   :set invpaste paste?<cr>
+nnoremap        <leader>p               :set invpaste paste?<cr>
 
 " Quickfix and location list toggles
 nmap            <silent>^               :QFToggle<cr>
@@ -100,3 +100,7 @@ nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 " with <c-o> mapped to open with ctrlP I need another jumplist key
 nnoremap <c-j> <c-o>
 nnoremap <c-h> <c-i>
+
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<tab>"
