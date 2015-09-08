@@ -20,11 +20,11 @@ nmap            k                       gk
 
 " Move in the quickfix window
 nmap            <S-n>                   :cn<cr>
-nmap            <S-m>                   :cp<cr>
+nmap            <S-p>                   :cp<cr>
 
 " Move in vimdiff
 nmap            <c-n>                   ]c
-nmap            <c-m>                   [c
+nmap            <c-p>                   [c
 
 " Move in tabs
 nnoremap        <tab>                   :tabnext<cr>
@@ -101,6 +101,9 @@ nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 nnoremap <c-j> <c-o>
 nnoremap <c-h> <c-i>
 
+" Automatically select first match when completing words
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+" Let tab accept autocomplete
 inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<tab>"
