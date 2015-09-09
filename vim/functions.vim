@@ -300,6 +300,17 @@ function! s:AlignTable()
         call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
     endif
 endfunction
+"""""""""""""""""""""""""
+
+"""""""""""""""""""""""""
+" Delete hidden buffers
+function! s:DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
 
 command! -nargs=0 LocationToggle call <SID>LocationToggle()
 command! -nargs=0 QFToggle call <SID>QFToggle()
@@ -319,3 +330,4 @@ command! -nargs=+ -complete=command BufDo call <SID>BufDo(<q-args>)
 command! -nargs=+ -complete=command TabDo call <SID>TabDo(<q-args>)
 command! -nargs=0 FileInfo call <SID>FileInfo('%')
 command! -nargs=0 AlignTable call <SID>AlignTable()
+command! -nargs=0 DeleteHiddenBuffers call <SID>DeleteHiddenBuffers()

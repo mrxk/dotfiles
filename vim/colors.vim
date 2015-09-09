@@ -11,6 +11,7 @@ highlight Pmenu      ctermfg=Cyan    ctermbg=Blue cterm=None guifg=Cyan guibg=Da
 highlight PmenuSel   ctermfg=White   ctermbg=Blue cterm=Bold guifg=White guibg=DarkBlue gui=Bold
 highlight PmenuSbar                  ctermbg=Cyan            guibg=Cyan
 highlight PmenuThumb ctermfg=White                           guifg=White
+highlight Visual term=reverse cterm=reverse ctermbg=0 ctermfg=White
 match ExtraWhitespace /^\s\+$/
 
 

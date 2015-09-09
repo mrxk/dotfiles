@@ -15,27 +15,22 @@ nnoremap        <leader>h               <C-w>s<C-w>j
 nnoremap        <leader>b               :buffers<cr>:buffer<space>
 
 " Move to the next visible line
-nmap            j                       gj
-nmap            k                       gk
+nnoremap        j                       gj
+nnoremap        k                       gk
 
 " Move in the quickfix window
-nmap            <S-n>                   :cn<cr>
-nmap            <S-p>                   :cp<cr>
+nnoremap        <S-h>                   :cn<cr>
+nnoremap        <S-l>                   :cp<cr>
 
 " Move in vimdiff
-nmap            <c-n>                   ]c
-nmap            <c-p>                   [c
+if &diff
+nnoremap        <S-h>                   ]c
+nnoremap        <S-l>                   [c
+endif
 
 " Move in tabs
 nnoremap        <tab>                   :tabnext<cr>
 nnoremap        <S-tab>                 :tabprev<cr>
-
-" Move in windows
-nnoremap        <C-h>                   <C-w>h
-nnoremap        <C-j>                   <C-w>j
-nnoremap        <C-k>                   <C-w>k
-nnoremap        <C-l>                   <C-w>l
-"nnoremap        <cr>                   gj
 
 " I can't stop hitting f1
 inoremap        <F1>                    <ESC>
@@ -107,3 +102,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 
 " Let tab accept autocomplete
 inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<tab>"
+
+" Sort the paragraph (for java import statements)
+nnoremap <silent> <leader>sp vip:sort<cr>
