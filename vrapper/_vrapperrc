@@ -1,0 +1,22 @@
+set incsearch
+set hlsearch
+set expandtab
+set scrolloff=4
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+" Move in tabs
+nnoremap        <tab>                   :tabnext<cr>
+nnoremap        <S-tab>                 :tabprev<cr>
+
+" Mapping to re-highlight an indented visual block
+vnoremap        <tab>                   >gv
+vnoremap        <s-tab>                 <gv
+
+" Mapping to bubble lines of visual selection text
+vnoremap         <C-J>                  xp`[V`]
+vnoremap         <C-K>                  xkP`[V`]
+
+command FormatJSON %!C:\cygwin64\bin\python2.7.exe -mjson.tool
+nnoremap F :FormatJSON<cr>
