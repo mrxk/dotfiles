@@ -186,7 +186,7 @@ function! s:FormatJSON()
     silent! normal ggVG=
     " Restore filetype
     exe "set ft=" . l:oft
-    " Remvoe any empty lines
+    " Remove any empty lines
     silent! exe ":g/^\s*$/d"
     " Restore the original position
     call setpos('.', l:pos)
@@ -290,6 +290,7 @@ endfunction
 
 """""""""""""""""""""""""
 " Align table
+" From https://gist.github.com/tpope/287147
 function! s:AlignTable()
     let p = '^\s*|.*|\s*$'
     if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -311,6 +312,7 @@ function! s:DeleteHiddenBuffers()
         silent execute 'bwipeout' buf
     endfor
 endfunction
+"""""""""""""""""""""""""
 
 command! -nargs=0 LocationToggle call <SID>LocationToggle()
 command! -nargs=0 QFToggle call <SID>QFToggle()
