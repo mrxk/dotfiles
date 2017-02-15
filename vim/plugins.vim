@@ -26,6 +26,33 @@ let g:tagbar_type_groovy = {
         \ 'v:variables',
     \ ]
 \ }
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : '~/Go/work/bin/gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 " Org Mode settings
 " let g:org_heading_shade_leading_stars = 0
@@ -33,4 +60,26 @@ let g:org_todo_keywords = [['TODO', 'WAITING', 'INRPROGRESS', '|', 'DONE'], ['|'
 let g:org_todo_keyword_faces = [
             \['CANCELED', [':foreground red', ':background black', ':weight bold', ':slant italic', ':decoration underline']]
             \]
+
+
+let g:ConqueTerm_Color = 2
+let g:ConqueTerm_CloseOnEnd = 1
+let g:ConqueTerm_StartMessages = 0
+
+function DebugSession()
+    make -o vimgdb -gcflags "-N -l"
+    redraw!
+    if (filereadable("vimgdb"))
+        ConqueGdb vimgdb
+    else
+        echom "Couldn't find debug file"
+    endif
+endfunction
+function DebugSessionCleanup(term)
+    if (filereadable("vimgdb"))
+        let ds=delete("vimgdb")
+    endif
+endfunction
+call conque_term#register_function("after_close", "DebugSessionCleanup")
+nmap <leader>d :call DebugSession()<CR>
 
