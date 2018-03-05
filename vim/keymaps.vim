@@ -88,7 +88,8 @@ endif
 
 nnoremap <silent> <leader>ji :JiraIssue<cr>
 nnoremap <silent> <leader>js :JiraSearch<cr>
-nnoremap <silent> <leader>jo :JiraMyIssues<cr>
+nnoremap <silent> <leader>jms :JiraMySprint<cr>
+nnoremap <silent> <leader>jmi :JiraMyIssues<cr>
 nnoremap <silent> <leader>jh :JiraHistory<cr>
 nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 
