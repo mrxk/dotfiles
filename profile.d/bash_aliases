@@ -1,0 +1,165 @@
+# User specific aliases and functions
+alias crlfs="grep -IUr $'\r\n'"
+alias tabs="grep -IUr $'\t'"
+alias spaces="grep -IUr '^  *$'"
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias get='git'
+alias g='git'
+
+alias gs='git status -s'
+alias gsl='git status'
+
+alias gd='git diff'
+alias gdv='git vimdiff'
+alias gds='git diff --stat=99999'
+
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset - %C(bold blue)%an>%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %Creset' --abbrev-commit"
+alias gls='git log --oneline --name-status'
+alias gll='git log --name-status'
+
+alias git_diff='git diff --no-ext-diff "$@"'
+
+alias vi=vim
+
+alias l='ls -F --color'
+alias ls='ls -F --color'
+alias ll='ls -AFl --color'
+
+# Attach an existing git repo to an existing bare remote git repo
+function gsync()
+{
+    if [ -z "$1" ]
+    then
+        echo "Usage: gsync [remote git path]"
+        return
+    fi
+    if [ ! -e .git ]
+    then
+        git init
+    fi
+    git remote add origin $1
+    git config branch.master.remote origin
+    git config branch.master.merge refs/heads/master
+}
+
+# get a quick overview for your git repo
+function git_info() {
+    if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
+        # print informations
+        echo "git repo overview"
+        echo "-----------------"
+        echo
+
+        # print all remotes and thier details
+        for remote in $(git remote show); do
+            echo $remote:  
+            git remote show $remote
+            echo
+        done
+
+        # print status of working repo
+        echo "status:"
+        if [ -n "$(git status -s 2> /dev/null)" ]; then
+            git status -s
+        else
+            echo "working directory is clean"
+        fi
+
+        # print at least 5 last log entries
+        echo 
+        echo "log:"
+        git log -5 --oneline
+        echo 
+
+    else
+        echo "you're currently not in a git repository"
+
+    fi
+}
+
+#
+# Return all of the git working directories from the current directory.
+# Can be used in scripts like
+#    git_dirs | while read d; do pushd $d; git status; popd; done;
+# The first and only argumnet is a depth to limit the search time.
+# The default is unlimited.
+function git_dirs()
+{
+    if [ ! -z "$1" ]
+    then
+        depth=$1
+        if [ "$depth" -lt "2" ]
+        then
+            depth=2
+        fi
+        opt="-maxdepth $depth"
+    fi
+    find . $opt -type d -name ".git"|while read d; do dirname $d; done;
+}
+
+#
+# Return all of the directories from the current directory in which rpmbuilder
+# can build an rpm.  Can be used in scripts like
+#    rpm_dirs | while read d; do pushd $d; sva.rpmbuilder clean; sva.rpmbuilder; popd; done;
+# The first and only argumnet is a depth to limit the search time.
+# The default is unlimited.
+function rpm_dirs()
+{
+    if [ ! -z "$1" ]
+    then
+        depth=$1
+        if [ "$depth" -lt "2" ]
+        then
+            depth=2
+        fi
+        opt="-maxdepth $depth"
+    fi
+    find . $opt -type f -name "rpmbuilder.properties"|while read d; do dirname $d; done;
+}
+
+# Execute the given command in all git directories under the current directory
+function for_each_git_dir()
+{
+    git_dirs | while read d
+    do
+        pushd $d > /dev/null
+        echo "========================"
+        echo "Git dir: $(pwd)"
+        echo "------------------------"
+        eval "$@"
+        popd > /dev/null
+    done
+}
+alias each_git_dir=for_each_git_dir
+
+# Execute the given command in all git directories under the current directory
+function for_each_rpm_dir()
+{
+    rpm_dirs | while read d
+    do
+        pushd $d > /dev/null
+        echo "========================"
+        echo "RPM dir: $(pwd)"
+        echo "------------------------"
+        eval "$@"
+        popd > /dev/null
+    done
+}
+alias each_rpm_dir=for_each_rpm_dir
+
+function git_fix_chmod()
+{
+    git diff --summary | grep --color 'mode change 100755 => 100644';
+    if [ "$?" == "0" ]
+    then
+        git diff --summary | grep --color 'mode change 100755 => 100644' | cut -d' ' -f7- | xargs -d'\n' chmod +x;
+    fi
+
+    git diff --summary | grep --color 'mode change 100644 => 100755';
+    if [ "$?" == "0" ]
+    then
+        git diff --summary | grep --color 'mode change 100644 => 100755' | cut -d' ' -f7- | xargs -d'\n' chmod -x
+    fi
+}
