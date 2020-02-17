@@ -55,10 +55,6 @@ nnoremap        <silent><leader>G       :let word = expand("<cword>")<cr>:tabnew
 " Tagbar
 nnoremap        <S-T>                   :TagbarToggle<cr>
 
-" Tag stack
-" Regular map so that we pick up vim-go's remap of <C-T>
-nmap            <C-[>                   <C-T>
-
 " Netrw
 nnoremap        <S-e>                   :Lexplore<cr>
 
