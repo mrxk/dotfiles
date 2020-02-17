@@ -7,52 +7,9 @@
 " Calendar    - https://github.com/mattn/calendar-vim.git
 " SpeedDating - https://github.com/tpope/vim-speeddating.git
 
-" Make ctrl-o open for ctrl-p plugin
+" CtrlP settings
 let g:ctrlp_map = '<c-o>'
 let g:ctrlp_custom_ignore = '\.class$'
-
-" Couldn't get cygwin tmux to behave with DirArrows
-let g:NERDTreeDirArrows=0
-
-" Custom Tagbar settings
-let tlist_groovy_settings = 'groovy;p:package;c:class;i:interface;f:function;v:variables'
-let g:tagbar_type_groovy = {
-    \ 'ctagstype' : 'groovy',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'c:class',
-        \ 'i:interface',
-        \ 'f:function',
-        \ 'v:variables',
-    \ ]
-\ }
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
 
 " Org Mode settings
 " let g:org_heading_shade_leading_stars = 0
@@ -60,3 +17,13 @@ let g:org_todo_keywords = [['TODO', 'WAITING', 'INRPROGRESS', '|', 'DONE'], ['|'
 let g:org_todo_keyword_faces = [
             \['CANCELED', [':foreground red', ':background black', ':weight bold', ':slant italic', ':decoration underline']]
             \]
+
+" Netrw settings
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" Vim-go settings
+let g:go_list_type = "quickfix"

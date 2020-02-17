@@ -31,6 +31,8 @@ endif
 " Move in tabs
 nnoremap        <tab>                   :tabnext<cr>
 nnoremap        <S-tab>                 :tabprev<cr>
+nnoremap        <left>                  gT
+nnoremap        <right>                 gt
 
 " I can't stop hitting f1
 inoremap        <F1>                    <ESC>
@@ -50,14 +52,15 @@ nnoremap        <silent><leader>g       :execute ":vimgrep " . expand("<cword>")
 " Grep all files from cwd
 nnoremap        <silent><leader>G       :let word = expand("<cword>")<cr>:tabnew<cr>:execute ":vimgrep " . word . " **"<cr>:QFSort<cr>:cc1<cr>
 
-" Man page for current word
-nnoremap        <leader>m               :execute ":Man " . expand("<cword>") <cr>
-
 " Tagbar
 nnoremap        <S-T>                   :TagbarToggle<cr>
 
-" NerdTree
-nnoremap        <silent><leader>n       :NERDTreeToggle<cr>
+" Tag stack
+" Regular map so that we pick up vim-go's remap of <C-T>
+nmap            <C-[>                   <C-T>
+
+" Netrw
+nnoremap        <S-e>                   :Lexplore<cr>
 
 " Highlight long lines 
 nnoremap        <leader>l               :LongLineHLToggle<cr>
@@ -70,7 +73,7 @@ vnoremap        <silent><leader>fx      :FormatXMLRange<cr>
 
 " Mapping to re-highlight an indented visual block
 vnoremap        <tab>                   >gv
-vnoremap        <s-tab>                 <gv
+vnoremap        <S-tab>                 <gv
 
 " Mapping to bubble lines of visual selection text
 vnoremap         <C-J>                  xp`[V`]
@@ -94,8 +97,8 @@ nnoremap <silent> <leader>jh :JiraHistory<cr>
 nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 
 " with <c-o> mapped to open with ctrlP I need another jumplist key
-nnoremap <c-j> <c-o>
-nnoremap <c-h> <c-i>
+nnoremap <C-j> <c-o>
+nnoremap <C-h> <c-i>
 
 " Automatically select first match when completing words
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
