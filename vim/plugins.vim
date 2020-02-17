@@ -60,26 +60,3 @@ let g:org_todo_keywords = [['TODO', 'WAITING', 'INRPROGRESS', '|', 'DONE'], ['|'
 let g:org_todo_keyword_faces = [
             \['CANCELED', [':foreground red', ':background black', ':weight bold', ':slant italic', ':decoration underline']]
             \]
-
-
-let g:ConqueTerm_Color = 2
-let g:ConqueTerm_CloseOnEnd = 1
-let g:ConqueTerm_StartMessages = 0
-
-function DebugSession()
-    make -o vimgdb -gcflags "-N -l"
-    redraw!
-    if (filereadable("vimgdb"))
-        ConqueGdb vimgdb
-    else
-        echom "Couldn't find debug file"
-    endif
-endfunction
-function DebugSessionCleanup(term)
-    if (filereadable("vimgdb"))
-        let ds=delete("vimgdb")
-    endif
-endfunction
-call conque_term#register_function("after_close", "DebugSessionCleanup")
-nmap <leader>d :call DebugSession()<CR>
-
