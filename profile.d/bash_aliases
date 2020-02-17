@@ -163,3 +163,14 @@ function git_fix_chmod()
         git diff --summary | grep --color 'mode change 100644 => 100755' | cut -d' ' -f7- | xargs -d'\n' chmod -x
     fi
 }
+
+if [ -f ~/.git-prompt.sh ]; then
+    export GIT_PS1_SHOWCOLORHINTS=
+    export GIT_PS1_SHOWDIRTYSTATE="true"
+    export GIT_PS1_SHOWSTASHSTATE="true"
+    export GIT_PS1_SHOWUPSTREAM="verbose git legacy"
+    export GIT_PS1_SHOWUNTRACKEDFILES=
+    export GIT_PS1_DESCRIBE_STYLE="branch"
+    . ~/.git-prompt.sh
+    PROMPT_COMMAND='__git_ps1 "[\u@\h:\w" "]\\\$ "'
+fi
