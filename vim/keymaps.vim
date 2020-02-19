@@ -57,6 +57,7 @@ nnoremap        <S-T>                   :TagbarToggle<cr>
 
 " NERDTree
 nnoremap        <S-e>                   :NERDTreeToggle<cr>
+nnoremap        <S-f>                   :NERDTreeFind<cr>
 
 " Highlight long lines 
 nnoremap        <leader>l               :LongLineHLToggle<cr>
