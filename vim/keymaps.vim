@@ -55,8 +55,8 @@ nnoremap        <silent><leader>G       :let word = expand("<cword>")<cr>:tabnew
 " Tagbar
 nnoremap        <S-T>                   :TagbarToggle<cr>
 
-" Netrw
-nnoremap        <S-e>                   :Lexplore<cr>
+" NERDTree
+nnoremap        <S-e>                   :NERDTreeToggle<cr>
 
 " Highlight long lines 
 nnoremap        <leader>l               :LongLineHLToggle<cr>
