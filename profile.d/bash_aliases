@@ -28,7 +28,7 @@ alias ls='ls -F --color'
 alias ll='ls -AFl --color'
 
 alias tps='tmux split-window -v -l 20 -d "watch -n .5 pstree -a"'
-alias tg='tps && tmux split-window -h -p 75 -t1 -d'
+alias tg='tps && tmux split-window -h -p 75 -t2 -d'
 
 # Attach an existing git repo to an existing bare remote git repo
 function gsync()
