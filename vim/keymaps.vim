@@ -19,13 +19,13 @@ nnoremap        j                       gj
 nnoremap        k                       gk
 
 " Move in the quickfix window
-nnoremap        <S-h>                   :cn<cr>
-nnoremap        <S-l>                   :cp<cr>
+nnoremap        <S-h>                   :cp<cr>
+nnoremap        <S-l>                   :cn<cr>
 
 " Move in vimdiff
 if &diff
-nnoremap        <S-h>                   ]c
-nnoremap        <S-l>                   [c
+nnoremap        <S-h>                   [c
+nnoremap        <S-l>                   ]c
 endif
 
 " Move in tabs
@@ -43,8 +43,8 @@ vnoremap        <F1>                    <ESC>
 nnoremap        <leader>p               :set invpaste paste?<cr>
 
 " Quickfix and location list toggles
-nmap            <silent>^               :QFToggle<cr>
-nmap            <silent><leader>^       :LocationToggle<cr>
+nnoremap            <silent>^               :QFToggle<cr>
+nnoremap            <silent><leader>^       :LocationToggle<cr>
 
 " Grep local file
 nnoremap        <silent><leader>g       :execute ":vimgrep " . expand("<cword>") . " %"<cr>:QFSort<cr>
@@ -53,7 +53,7 @@ nnoremap        <silent><leader>g       :execute ":vimgrep " . expand("<cword>")
 nnoremap        <silent><leader>G       :let word = expand("<cword>")<cr>:tabnew<cr>:execute ":vimgrep " . word . " **"<cr>:QFSort<cr>:cc1<cr>
 
 " Tagbar
-nnoremap        <S-T>                   :TagbarToggle<cr>
+nnoremap        <S-t>                   :TagbarToggle<cr>
 
 " NERDTree
 nnoremap        <S-e>                   :NERDTreeToggle<cr>
@@ -100,9 +100,6 @@ nnoremap <C-h> <c-i>
 " Automatically select first match when completing words
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-" Let tab accept autocomplete
-inoremap <expr> <tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<tab>"
 
 " Sort the paragraph (for java import statements)
 nnoremap <silent> <leader>sp vip:sort<cr>
