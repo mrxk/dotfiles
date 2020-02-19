@@ -21,17 +21,3 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeDirArrows = 1
 let NERDTreeDirArrowExpandable = '+'
 let NERDTreeDirArrowCollapsible = '-'
-
-" nerdtree-git-settings
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "*",
-    \ "Staged"    : "+",
-    \ "Untracked" : "?",
-    \ "Renamed"   : "R",
-    \ "Unmerged"  : "U",
-    \ "Deleted"   : "-",
-    \ "Dirty"     : "*",
-    \ "Clean"     : "clean",
-    \ 'Ignored'   : 'I',
-    \ "Unknown"   : "UNK"
-    \ }
