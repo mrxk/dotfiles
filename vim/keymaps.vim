@@ -93,9 +93,9 @@ nnoremap <silent> <leader>jmi :JiraMyIssues<cr>
 nnoremap <silent> <leader>jh :JiraHistory<cr>
 nnoremap <silent> <leader>jg :JiraGitBranch<cr>
 
-" with <c-o> mapped to open with ctrlP I need another jumplist key
-nnoremap <C-j> <c-o>
-nnoremap <C-h> <c-i>
+" Search FZF on C-o and C-p.  There is a weird delay with C-p.
+nnoremap <C-p> :FZF<cr>
+nnoremap <C-o> :FZF<cr>
 
 " Automatically select first match when completing words
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
