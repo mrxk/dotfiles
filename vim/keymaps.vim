@@ -103,3 +103,7 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 
 " Sort the paragraph (for java import statements)
 nnoremap <silent> <leader>sp vip:sort<cr>
+
+" Make tab complete popups
+inoremap <silent><tab> <C-R>=PopupTab()<CR>
+inoremap <silent><cr> <C-R>=PopupCR()<CR>

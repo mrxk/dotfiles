@@ -314,6 +314,23 @@ function! s:DeleteHiddenBuffers()
 endfunction
 """""""""""""""""""""""""
 
+"""""""""""""""""""""""""
+" Make <tab> complete in popup menus
+function! PopupTab()
+    if pumvisible()
+            return "\<c-n>"
+    endif
+    return "\<tab>"
+endfunction
+" Make <cr> accept in popup menus
+function! PopupCR()
+    if pumvisible()
+            return "\<c-y>"
+    endif
+    return "\<cr>"
+endfunction
+"""""""""""""""""""""""""
+
 command! -nargs=0 LocationToggle call <SID>LocationToggle()
 command! -nargs=0 QFToggle call <SID>QFToggle()
 command! -nargs=0 QFSort call <SID>QFSort()
