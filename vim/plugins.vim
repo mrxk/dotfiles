@@ -17,3 +17,6 @@ let NERDTreeDirArrowCollapsible = '-'
 
 " FZF settings
 let $FZF_DEFAULT_COMMAND='fdfind --type f'
+
+" YouCompleteMe settings
+let g:ycm_autoclose_preview_window_after_insertion = 1
