@@ -1,0 +1,157 @@
+{
+    "consul_log": {
+        "title":"consul_log",
+        "regex":{
+            "basic": {
+                "pattern": "^ *(?<timestamp>\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}:\\d{2}) \\[(?<level>\\w+)\\] (?<body>.*)$"
+            }
+        },
+        "level": {
+            "error": "ERR",
+            "warning": "WARN",
+            "info": "INFO"
+        },
+        "value": {
+            "level": { "kind":"string", "identifier": false },
+            "body": { "kind":"string", "identifier": false }
+        },
+        "sample" : [
+            {
+                "line" : "    2016/03/25 13:17:03 [INFO] agent: Synced service 'consul'"
+            },
+            {
+                "line" : "    2016/03/25 13:17:00 [ERR] agent: failed to sync remote state: No cluster leader"
+            }
+        ]
+    },
+    "puppet_log": {
+        "title":"puppet_log",
+        "regex":{
+            "basic": {
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}) +USER\\[(?<user>.*)\\] +- +(?<body>.*)$"
+            }
+        },
+        "level": {
+            "error": "Error",
+            "warning": "Warning",
+            "info": "Notice",
+            "debug": "Debug"
+        },
+        "value": {
+            "user": { "kind":"string", "identifier": true },
+            "body": { "kind":"string", "identifier": false}
+        },
+        "sample" : [
+            { "line": "2016-04-12 11:56:30 USER[Unauthenticated] - sh: /sys/class/scsi_host/host2/scan: Permission denied" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - ^[[0;36mDebug: CMD local:" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - ^[[0;36mDebug: CMD local: done^[[0m" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - ^[[0;36mDebug: CMD local: exit_code=0^[[0m" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - ^[[mNotice: Killing any other agent running on 10.99.0.60^[[0m" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - ^[[mNotice: Running puppet agent on 10.99.0.60^[[0m" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - conary rollback 1" },
+            { "line": "2016-04-12 11:56:31 USER[Unauthenticated] - fi" },
+        ]
+    },
+    "docker_log": {
+        "title":"docker_log",
+        "json":true,
+        "line-format": [ {"field": "time"}, ": ", {"field": "log"} ],
+        "timestamp-field": "time",
+        "body-field": "log",
+        "hide-extra": true
+    },
+    "error_log": {
+        "title": "error_log",
+        "regex":{
+            "basic": {
+                "pattern": "^\\[(?<timestamp>.* \\d\\d\\d\\d)\\] \\[(?<level>\\w+)\\] (?<body>.*)$"
+            }
+        },
+        "level": {
+            "error": "error",
+            "info": "notice"
+        },
+        "value": {
+            "level": { "kind":"string", "identifier": false},
+            "body": { "kind":"string", "identifier": false}
+        },
+        "sample" : [
+            { "line": "[Sun Jul 31 03:43:42 2016] [notice] Digest: done" },
+            { "line": "[Sun Jul 31 03:43:42 2016] [notice] Apache/2.2.15 (Unix) DAV/2 PHP/5.3.3 mod_ssl/2.2.15 OpenSSL/1.0.1e-fips SVN/1.6.11 mod_perl/2.0.4 Perl/v5.10.1 configured -- resuming normal operations" },
+            { "line": "[Sun Jul 31 03:43:42 2016] [error] [client 127.0.0.1] File does not exist: /var/www/html/configuration" }
+        ]
+    },
+    "rabbitmq_log": {
+        "title": "rabbitmq_log",
+        "multiline": true,
+        "regex": {
+            "basic": {
+                "pattern" : "^=(?<level>\\w+) REPORT==== (?<timestamp>\\d{2}-\\w{3}-\\d{4}::\\d{2}:\\d{2}:\\d{2}) ===(?<body>(?:.|\\n)*?)$"
+            }
+        },
+        "timestamp-format" : ["%d-%b-%Y::%H:%M:%S"],
+        "level": {
+            "error": "ERROR",
+            "warning": "WARNING|SUPERVISOR",
+            "info": "INFO|PROGRESS",
+            "fatal": "CRASH"
+        },
+        "value": {
+            "level": { "kind":"string", "identifier": false },
+            "body": { "kind":"string", "identifier": false}
+        },
+        "sample": [
+            { "line": "=INFO REPORT==== 25-Jul-2016::13:15:04 ===\\nMemory limit set to 24559MB of 61397MB total." },
+            { "line": "=WARNING REPORT==== 26-Jul-2016::10:21:50 ===\\nclosing AMQP connection <0.2238.0> (192.168.16.60:48268 -> 192.168.16.60:5672):\\nclient unexpectedly closed TCP connection" }
+        ]
+    },
+    "pgpool_log": {
+        "title": "pgpool_log",
+        "regex": {
+            "basic": {
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}): pid (?<pid>\\d+): (?<level>\\w+): +(?<body>.*)$"
+            }
+        },
+        "level": {
+            "error": "ERROR",
+            "debug": "DEBUG",
+            "info": "LOG",
+            "trace": "DETAIL"
+        },
+        "value": {
+            "pid": { "kind":"string", "identifier": true },
+            "level": { "kind":"string", "identifier": false},
+            "body": { "kind":"string", "identifier": false}
+        },
+        "sample": [
+            { "line": "2016-07-26 10:20:38: pid 12253: LOG:  fork a new child process with pid: 32700" },
+            { "line": "2016-07-26 10:20:47: pid 12455: ERROR:  unable to read data from frontend" },
+            { "line": "2016-07-26 10:20:47: pid 12455: DETAIL:  EOF encountered with frontend" }
+        ]
+    },
+    "pgnode_log": {
+        "title": "pgnode_log",
+        "regex": {
+            "basic": {
+                "pattern": "^(?<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\.\\d{3}) (?<level>\\w+): +(?<body>.*)$"
+            }
+        },
+        "level": {
+            "fatal": "EDTFATAL",
+            "error": "EDTERROR",
+            "warning": "EDTWARNING",
+            "info": "EDTSTATEMENT|EDTLOG",
+            "trace": "EDTDETAIL|EDTHINT"
+        },
+        "value": {
+            "level": { "kind":"string", "identifier": false},
+            "body": { "kind":"string", "identifier": false}
+        },
+        "sample": [
+            { "line": "2016-07-25 13:36:30.313 EDTWARNING:  TIMESTAMP(29) precision reduced to maximum allowed, 6" },
+            { "line": "2016-07-25 13:37:17.219 EDTSTATEMENT:  select count(*) from reportrenderer.databasechangeloglock" },
+            { "line": "2016-07-25 13:31:47.998 EDTERROR:  relation \"home.databasechangeloglock\" does not exist at character 22" },
+            { "line": "2016-07-25 14:07:02.481 EDTFATAL:  lock file \"postmaster.pid\" already exists" }
+        ]
+    }
+}

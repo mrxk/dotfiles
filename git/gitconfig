@@ -1,0 +1,17 @@
+[core]
+    pager = less -FRXS
+    excludesfile = ~/.gitignore
+    editor = vim
+[alias]
+    vdiff = difftool -y -t vimdiff
+    vimdiff = difftool -y -t vimdiff
+    serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+    nfm = "!f(){ git -c core.fileMode=false $@; };f"
+    tags = tag
+    branches = branch -a
+    stashes = stash list
+    remotes = remote -v
+    contributors = shortlog -s -n
+[user]
+	name = mrxk
+	email = mrxk@mrxk
